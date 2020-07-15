@@ -6,7 +6,10 @@ import java.nio.charset.StandardCharsets;
 
 public class GripePorcina {
   public static void main(String[] args) throws IOException {
+    // leer el archivo
     Scanner scanner = new Scanner(new File("fiebre.txt"));
+
+    // definir archivos de salida y lista para lineas de los archivos
     List<String> sospechosos = new ArrayList<String>();
     Path fileSospechosos = Paths.get("sospechosos.txt");
     List<String> noSospechosos = new ArrayList<String>();
@@ -19,8 +22,11 @@ public class GripePorcina {
     String institucionSospechoso = "";
     int mayorGlobulos = 0;
 
+    // mientras haya una linea que leer en el archivo ejecuta el ciclo
     while(scanner.hasNextLine()){
+      // obtener linea del archivo
       String linea = scanner.nextLine();
+      // generar arreglo con datos
       String campos[] = linea.split(",");
       cantidadPacientes += 1;
 
@@ -30,6 +36,7 @@ public class GripePorcina {
       float hemoblogina = Float.parseFloat(campos[3]);
       int globulos = Integer.parseInt(campos[4]);
 
+      // si esta dentro d elos parametros se agrega a sospechosos
       if (temperatura > 38 && hemoblogina < 10 && globulos < 4000){
         cantSospechosos += 1;
         sospechosos.add(linea);
@@ -40,6 +47,7 @@ public class GripePorcina {
           mayorGlobulos = globulos;
         }
       } else {
+        // si no esta entonces se agrega a no sospechosos
         noSospechosos.add(linea);
       }
     }
@@ -48,6 +56,7 @@ public class GripePorcina {
       porcentaje = (cantSospechosos * 100) / cantidadPacientes;
     }    
 
+    // se escriben las lineas en los archivos
     Files.write(fileSospechosos, sospechosos, StandardCharsets.UTF_8);
     Files.write(fileNoSospechosos, noSospechosos, StandardCharsets.UTF_8);
 

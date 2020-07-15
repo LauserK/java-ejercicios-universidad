@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Notas {
   public static void main(String[] args) throws IOException {
+    //leer archivo
     Scanner scanner = new Scanner(new File("NOTAS.txt"));        
     String cedula_mayor = "";
     String nombre_mayor = "";      
@@ -19,10 +20,14 @@ public class Notas {
     int cantidad_1 = 0; 
     int cantidad_2 = 0; 
     int cantidad_3 = 0;
+
+    // archivo de salida
     List<String> lines = new ArrayList<String>();
     Path file = Paths.get("REPORTE.txt");    
 
+    // mientras haya linea que leer
     while(scanner.hasNextLine()){
+      // obtener linea y asignar a arreglo
       String campos[] = scanner.nextLine().split(",");
       
       String cedula = campos[0];
@@ -41,6 +46,7 @@ public class Notas {
         nota_mayor = nota_final;
       }
 
+      // si aprobo el curso se agrega al archivo de salida
       if(nota_final >= 10){
         lines.add(String.format("%s,%s,%d", cedula, nombre, nota_final));
       }
@@ -65,6 +71,7 @@ public class Notas {
       porcentaje_3 = (cantidad_3 * 100) / lineas;
     }
 
+    // escribir demas lineas
     lines.add(String.format("PROMEDIO FINAL SECCION: %d", promedio));
     lines.add(String.format("%s,%s", cedula_mayor, nombre_mayor));
     lines.add(String.format(Locale.ROOT, "%3.2f,%3.2f,%3.2f", porcentaje_1, porcentaje_2, porcentaje_3));    
