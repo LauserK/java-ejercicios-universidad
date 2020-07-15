@@ -46,9 +46,13 @@ public class GripePorcina {
 
     if(cantidadPacientes != 0) {
       porcentaje = (cantSospechosos * 100) / cantidadPacientes;
-    }
+    }    
 
     Files.write(fileSospechosos, sospechosos, StandardCharsets.UTF_8);
     Files.write(fileNoSospechosos, noSospechosos, StandardCharsets.UTF_8);
+
+    System.out.printf("Porcentaje de pacientes no sospechosos: %2.2f",porcentaje);
+    System.out.println();
+    System.out.printf("%s / %s", nombreSospechoso, institucionSospechoso);
   }
 }
